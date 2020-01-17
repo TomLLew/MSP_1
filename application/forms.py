@@ -72,3 +72,5 @@ class PostForm(FlaskForm):
             Length(min=2, max=100)
         ]
     )
+
+    submit = SubmitField('Post')

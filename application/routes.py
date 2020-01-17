@@ -1,5 +1,9 @@
 from flask import render_template, redirect, url_for, request
-from application import app
+from application import app, db, bcrypt
+from application.models import User, Post
+from application.forms import PostForm, LoginForm, RegistrationForm
+from flask_login import login_user, current_user, logout_user, login_required
+
 
 @app.route('/')
 @app.route('/home')
@@ -73,3 +77,20 @@ def delete_account():
         return redirect(url_for('register'))
     except:
         return redirect(url_for('account'))
+
+@app.route('/create', methods=['GET','POST'])
+@login_required
+def create():
+    form = PostForm()
+    if form.validate_on_submit():
+        postData = Post(
+            post=form.post.data
+            user_id=current_user.id
+        )
+
+        db.session.add(postData)
+        db.session.commit()
+        return redirect(url_for('posts'))
+    else:
+        print(form.errors)
+    return render_template('create_post.html', title='Create Post', form=form)
