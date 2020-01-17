@@ -5,4 +5,8 @@ from flask_login import LoginManager
 
 app = Flask(__name__)
 
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
+
+
 from application import routes
