@@ -4,13 +4,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
 
+@login_manager.user_loader
+def load_user(id):
+	return User.query.get(int(id))
 
 
 class Post(db.model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-	date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-	post = db.Column(db.String(250), nullable=False)
-   
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    post = db.Column(db.String(250), nullable=False)    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

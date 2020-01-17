@@ -84,7 +84,7 @@ def create():
     form = PostForm()
     if form.validate_on_submit():
         postData = Post(
-            post=form.post.data
+            post=form.post.data,
             user_id=current_user.id
         )
 
