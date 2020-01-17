@@ -6,7 +6,7 @@ from flask_login import UserMixin
 
 
 
-class post(db.model):
+class Post(db.model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
 	date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 	post = db.Column(db.String(250), nullable=False)
