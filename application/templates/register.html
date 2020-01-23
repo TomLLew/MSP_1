@@ -75,6 +75,20 @@
             </div>
             <br>
             <div class="form-group">
+                {{ form.profile_pic.label }}
+                {% if form.profile_pic.errors %}
+                    {{ form.profile_pic }}
+                    <div class="error">
+                        {% for error in form.profile_pic.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.profile_pic }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
                 {{ form.submit }}
             </div>
         </form>
