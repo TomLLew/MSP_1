@@ -12,15 +12,17 @@ def load_user(id):
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key=True, nullable=False)
 	date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-	post = db.Column(db.String(250), nullable=False)    
-	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+	post = db.Column(db.String(250), nullable=False)   
 
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+	
 	def __repr__(self):
 		return ''.join([
 			'Date Posted: ', str(self.date_posted), '\r\n',
 			'Post: ', self.post, '\r\n'
-			'User: ', str(self.user_id)
-		])
+			'User: ', str(self.user_id), '\r\n'
+		]
+	)
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
@@ -28,9 +30,10 @@ class User(db.Model, UserMixin):
 	last_name = db.Column(db.String(60), nullable=False)
 	email = db.Column(db.String(150), nullable=False, unique=True)
 	password = db.Column(db.String(200), nullable=False)
-	image = db.Column(db.String(100), nullable=False)  	
-	post = db.relationship('Post', backref='author', lazy=True)
+	image = db.Column(db.String(100), nullable=False) 
 
+	post = db.relationship('Post', backref='author', lazy=True)
+	
 	def __repr__(self):
 		return ''.join([
 			'User ID: ', str(self.id), '\r\n',

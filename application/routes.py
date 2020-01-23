@@ -3,7 +3,10 @@ from application import app, db, bcrypt
 from application.models import User, Post
 from application.forms import PostForm, LoginForm, RegistrationForm
 from flask_login import login_user, current_user, logout_user, login_required
-
+from random import randint
+import boto3
+import pymysql
+from werkzeug import secure_filename
 
 @app.route('/')
 @app.route('/home')
@@ -43,12 +46,17 @@ def login():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+    random = randint(0, 999999)
     if current_user.is_authenticated:
         return redirect(url_for('posts'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        filename = secure_filename(form.profile_pic.data.filename)
+        i_id = 'images/' + str(random) + filename
+        s3 = boto3.resource('s3')
+        s3.Bucket('msp-1-bucket-1579257693').put_object(Key=i_id, Body=request.files["profile_pic"] )
         hashed_pw = bcrypt.generate_password_hash(form.password.data)
-        user = User(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data, password=hashed_pw)
+        user = User(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data, password=hashed_pw, image=i_id)
 
         db.session.add(user)
         db.session.commit()
