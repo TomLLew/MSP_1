@@ -5,6 +5,7 @@ from application.forms import PostForm, LoginForm, RegistrationForm
 from flask_login import login_user, current_user, logout_user, login_required
 from random import randint
 import boto3
+import pymysql
 
 @app.route('/')
 @app.route('/home')
