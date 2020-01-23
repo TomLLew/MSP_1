@@ -54,7 +54,7 @@ def register():
         filename = secure_filename(form.profile_pic.data.filename)
         i_id = 'images/' + str(random) + filename
         s3 = boto3.resource('s3')
-        s3.Bucket('msp-1-bucket-1579257693').put_object(Key=i_id, Body=request.files["image"] )
+        s3.Bucket('msp-1-bucket-1579257693').put_object(Key=i_id, Body=request.files["profile_pic"] )
         hashed_pw = bcrypt.generate_password_hash(form.password.data)
         user = User(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data, password=hashed_pw, image=i_id)
 
