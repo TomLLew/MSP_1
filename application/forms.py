@@ -45,7 +45,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
 
         if user:
-            raise ValidationError('Email is already in use, please try another').
+            raise ValidationError('Email is already in use, please try another')
 
 
 class LoginForm(FlaskForm):
