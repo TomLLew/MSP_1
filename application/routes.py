@@ -52,7 +52,7 @@ def register():
     if form.validate_on_submit():
         i_id = random
         image_name = str(form.profile_pic.data) + str(i_id)
-        s3 = boto3.client('s3')
+        s3 = boto3.resource('s3')
         s3.Bucket('msp-1-bucket-1579257693').put_object(Key=str(image_name), Body=form.profile_pic.data)
         hashed_pw = bcrypt.generate_password_hash(form.password.data)
         user = User(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data, password=hashed_pw, image=image_name)
