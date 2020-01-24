@@ -16,7 +16,7 @@ def home():
 @app.route('/posts', methods=['GET', 'POST'])
 @login_required
 def posts():
-    postData = Posts.query.all()
+    postData = Post.query.all()
     image = User.query.filter_by(user_id=current_user.id).all()
     payload = "https://msp-1-bucket-1579257693.s3.amazonaws.com/"+image['image']
     print(payload)
