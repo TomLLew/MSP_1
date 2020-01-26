@@ -14,7 +14,7 @@ class Post(db.Model):
 	date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 	post = db.Column(db.String(250), nullable=False)   
 
-	user_id = db.Column(db.Integer, db.ForeignKey('user_id'), nullable=False)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 	
 	def __repr__(self):
 		return ''.join([
@@ -39,5 +39,5 @@ class User(db.Model, UserMixin):
 			'User ID: ', str(self.id), '\r\n',
 			'Name: ', self.first_name, ' ', self.last_name, '\r\n',
 			'Email: ', self.email,
-			'Image ID: ', self.image
+			'Image ID: ', str(self.image)
 		])

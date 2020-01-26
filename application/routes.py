@@ -18,7 +18,7 @@ def home():
 def posts():
     postData = Post.query.all()
     image = User.query.filter_by(id=current_user.id).all()
-    payload = "https://msp-1-bucket-1579257693.s3.amazonaws.com/"+image['image']
+    payload = "https://msp-1-bucket-1579257693.s3.amazonaws.com/" + image.image
     print(payload)
     return render_template('posts.html', title='Posts', posts=postData, picture=payload)
 
